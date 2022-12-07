@@ -46,7 +46,31 @@ class BSTNode {
      * @param {number} newVal The data to be added to a new node.
      * @returns {BinarySearchTree} This tree.
      */
-    insert(newVal) {}
+    insert(newVal) {
+      const newNode = new BSTNode(newVal);
+      if (this.isEmpty()) {
+          this.root = newNode;
+          return this;
+      }
+      let current = this.root;
+      while (true) {
+          if (newVal <= current.data) {
+              if (!current.left) {
+                  current.left = newNode;
+                  return this;
+              } else {
+                  current = current.left;
+              }
+          } else if (newVal > current.data) {
+              if (!current.right) {
+                  current.right = newNode;
+                  return this;
+              } else {
+                  current = current.right;
+              }
+          }
+      }
+    }
 
     /**
      * Inserts a new node with the given newVal in the right place to preserver
@@ -58,7 +82,24 @@ class BSTNode {
      *    the tree is being traversed.
      * @returns {BinarySearchTree} This tree.
      */
-    insertRecursive(newVal, curr = this.root) {}
+    insertRecursive(newVal, curr = this.root) {
+      const newNode = new BSTNode(newVal);
+      // edge case
+      if (this.isEmpty()) {
+          this.root = newNode;
+          return this;
+      }
+      // baseline
+      if (newVal <= current.data && !current.left) {
+          current.left = newNode;
+          return this;
+      } else if (newVal > current.data && !current.right) {
+          current.right = newNode;
+          return this;
+      }
+      //recursive call
+      return this.insertRecursive(newVal, newVal <= current.data ? current.left : current.right);
+    }
     
     /**
      * Determines if this tree contains the given searchVal.
